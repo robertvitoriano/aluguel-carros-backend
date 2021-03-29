@@ -35,6 +35,11 @@ class CategoriesRepository {
 
 
 
+  findByName (name: String):Category{
+    const category = this.categories.find((category)=>category.name === name)
+
+    return category
+  }
 
 }
 
