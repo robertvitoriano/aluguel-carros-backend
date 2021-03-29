@@ -6,12 +6,14 @@ const categories: Array<Category> = []
 
 categoriesRoutes.post("/", (request, response)=>{
   const{ name, description} = request.body
-  const category = {
+  const category = new Category()
+
+  Object.assign(category,{
     name, 
     description,
     created_at: new Date()
-  }
-
+  })
+  
   categories.push(category)
 
   return response.status(201).send(category)
