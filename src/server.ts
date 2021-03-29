@@ -1,16 +1,13 @@
 import express from 'express'
-import { createCourse } from './routes'
-
-
+import { categoriesRoutes } from './routes/categories.routes'
+import morgan from 'morgan'
 const app = express()
 
 
-app.post('/courses',(request, response)=>{
-    const {name} = request.body
+app.use(express.json())
+app.use(morgan('common'))
+app.use("/categories",categoriesRoutes)
 
-    console.log('NAME', name)
-
-})
 app.listen(3000,()=>{
     console.log('My app is running')
 })
