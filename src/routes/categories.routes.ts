@@ -14,7 +14,6 @@ categoriesRoutes.post("/", (request, response)=>{
 
   const createCategoryService = new CreateCategoryService(categoriesRepository)
 
-
   try{
     createCategoryService.execute({name, description})
 
