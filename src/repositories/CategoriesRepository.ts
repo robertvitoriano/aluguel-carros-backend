@@ -1,10 +1,10 @@
 import { Category } from './../models/Category'
-import { ICreateCategoriesRepository, ICreateCategoryDTO } from './ICategoriesRepository'
+import { ICategoriesRepository, ICreateCategoryDTO } from './ICategoriesRepository'
 
 // DTO Data transfer object
 
 
-class CategoriesRepository implements ICreateCategoriesRepository {
+class CategoriesRepository implements ICategoriesRepository {
 
   private categories: Array<Category> = []
 
