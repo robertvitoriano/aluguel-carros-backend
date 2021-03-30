@@ -3,7 +3,7 @@ interface ICreateCategoryDTO{
   name: string
   description: string
 }
-interface  ICreateCategoriesRepository {
+interface  ICategoriesRepository {
 
   findByName (name: string): Category
   list (): Category[]
@@ -11,4 +11,4 @@ interface  ICreateCategoriesRepository {
 
 }
 
-export { ICreateCategoriesRepository, ICreateCategoryDTO }
+export { ICategoriesRepository, ICreateCategoryDTO }
