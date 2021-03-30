@@ -11,4 +11,4 @@ interface  ICreateCategoriesRepository {
 
 }
 
-export { ICreateCategoriesRepository }
+export { ICreateCategoriesRepository, ICreateCategoryDTO }
