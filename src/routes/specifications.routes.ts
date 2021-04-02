@@ -3,7 +3,7 @@ import { CreateSpecificationService } from '../modules/cars/services/CreateSpeci
 import { SpecificationRepository} from './../modules/cars/repositories/SpecificationRepository'
 const specificationRoutes = Router()
 const specificationRepository = new SpecificationRepository()
-specificationRoutes.get("/",(reques, response)=>{
+specificationRoutes.post("/",(request, response)=>{
 
   const { name, description } = request.body
   const createSpecificationService = new CreateSpecificationService(specificationRepository)
@@ -13,4 +13,17 @@ specificationRoutes.get("/",(reques, response)=>{
 
 })
 
+
+specificationRoutes.get("/",(request, response)=>{
+
+  const { name } = request.query
+  const createSpecificationService = new CreateSpecificationService(specificationRepository)
+
+  const specification = specificationRepository.findByName(String(name))
+
+  if(!specification)   return response.status(400).send();
+
+  return response.status(200).json(specification);
+
+})
 export { specificationRoutes }
