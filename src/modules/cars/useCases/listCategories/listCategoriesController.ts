@@ -1,0 +1,22 @@
+import { Request, Response } from 'express'
+import { ICategoriesRepository } from '../../repositories/ICategoriesRepository'
+import { ListCategoriesUseCase} from './ListCategoriesUseCase'
+class ListCategoriesController {
+
+
+  constructor( private listCategoriesUseCase: ListCategoriesUseCase){
+
+
+  }
+
+  handle = (request: Request, response: Response): Response =>{
+
+    const allCategories =  this.listCategoriesUseCase.execute()
+
+    return response.status(200).json(allCategories)
+
+  }
+
+}
+
+export {ListCategoriesController}

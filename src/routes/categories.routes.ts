@@ -3,20 +3,15 @@ import { CreateCategoryUseCase } from '../modules/cars/useCases/createCategory/C
 import {CategoriesRepository} from '../modules/cars/repositories/CategoriesRepository'
 
 import { createCategoryController } from './../modules/cars/useCases/createCategory'
+import { listCategoriesController } from '../modules/cars/useCases/listCategories'
+
 const categoriesRoutes = Router()
 
-const categoriesRepository = new CategoriesRepository()
 
 
 categoriesRoutes.post("/",createCategoryController.handle)
 
-categoriesRoutes.get("/", (request, response)=>{
-  
-  const categories =  categoriesRepository.list()
-
-  return response.status(200).json(categories)
-
-})
+categoriesRoutes.get("/",listCategoriesController.handle)
 
 
 export { categoriesRoutes }
