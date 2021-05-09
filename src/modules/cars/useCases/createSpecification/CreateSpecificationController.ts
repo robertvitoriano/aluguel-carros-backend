@@ -7,7 +7,7 @@ class  CreateSpecificationController {
   }
 
 
-  handle (request: Request, response: Response):Response {
+  handle = (request: Request, response: Response):Response => {
 
 
     const { name, description } = request.body
