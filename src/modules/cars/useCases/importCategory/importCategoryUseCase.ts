@@ -14,6 +14,7 @@ class ImportCategoryUseCase {
 
   
   loadCategories(file: Express.Multer.File): Promise<IImportCategory[]>{
+
     return new Promise((resolve, reject)=>{
       const stream = fs.createReadStream(file.path)
       const categories:IImportCategory[] = []
@@ -42,8 +43,6 @@ class ImportCategoryUseCase {
 
     })
     
-
-
   }
 
 
@@ -51,7 +50,10 @@ class ImportCategoryUseCase {
 
     
     const categories = await this.loadCategories(file)
-    console.log(categories)
+
+    categories.forEach(({name, description})=>{
+      this.categoriesRepository.create({name, description})
+    })
 
 
   }
