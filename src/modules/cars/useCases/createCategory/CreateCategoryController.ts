@@ -9,7 +9,6 @@ class CreateCategoryController  {
   handle = (request: Request, response: Response)=>{  
     const{ name, description} = request.body
 
-
   try{
     this.createCategoryUseCase.execute({name, description})
 
