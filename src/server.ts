@@ -14,6 +14,5 @@ app.use(router)
 
 
 app.listen(3000,()=>{
-    console.log('My')
-    
+    console.log('My app is running')
 })
