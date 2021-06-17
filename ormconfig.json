@@ -1,7 +1,8 @@
 {
-  "type":"postgres",
-  "host":"localhost",
-  "username":"",
-  "password":"",
-  "database":"aluguel"
+  "type": "postgres",
+  "port": 5432,
+  "host": "localhost",
+  "username": "docker",
+  "password": "123",
+  "database": "database_carros"
 }
