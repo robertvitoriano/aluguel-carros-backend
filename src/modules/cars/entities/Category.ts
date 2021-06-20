@@ -1,11 +1,21 @@
 import {v4 as uuidV4} from 'uuid'
+import {CreateDateColumn, Entity, PrimaryColumn, Column} from  "typeorm"
 
+@Entity("categories")
 class Category {
 
-  name:String
-  description:String
-  created_at:Date
+  @PrimaryColumn()
   id?:String
+
+  @Column()
+  name:String
+
+  @Column()
+  description:String
+
+  @CreateDateColumn()
+  created_at:Date
+  
  
   constructor () {
     if (!this.id){
