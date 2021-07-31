@@ -7,7 +7,7 @@ class CategoriesRepository implements ICategoriesRepository {
   
   constructor () {
 
-    this.repository = getRepository(Category)
+    this.repository = null
 
   }
 
