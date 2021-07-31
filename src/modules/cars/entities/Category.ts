@@ -16,16 +16,12 @@ class Category {
   @CreateDateColumn()
   created_at:Date
   
- 
   constructor () {
     if (!this.id){
       this.id = uuidV4()
     }
 
   }
-
-
-
 }
 
 export { Category }

@@ -1,12 +1,11 @@
 import express from 'express'
-import { categoriesRoutes } from './routes/categories.routes'
-import { router } from './routes'
 import swaggerUi from  'swagger-ui-express'
 import swaggerConfig from "./swagger.json" 
+import morgan from 'morgan'
 
+import { router } from './routes'
 import './database'
 
-import morgan from 'morgan'
 const app = express()
 
 
