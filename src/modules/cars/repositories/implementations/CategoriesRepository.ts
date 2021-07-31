@@ -7,7 +7,7 @@ class CategoriesRepository implements ICategoriesRepository {
   
   private constructor () {
 
-    this.repository = getRepository(Category)
+    //this.repository = getRepository(Category)
 
   }
   private repository: Repository<Category>
@@ -26,6 +26,7 @@ class CategoriesRepository implements ICategoriesRepository {
 
 
   async create ({name, description}: ICreateCategoryDTO ): Promise<void> {
+    console.log('criar categoria')
 
     const category = this.repository.create({
       description,
