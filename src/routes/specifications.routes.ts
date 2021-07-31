@@ -4,6 +4,5 @@ const specificationRoutes = Router()
 
 specificationRoutes.post("/", (request:Request, response:Response)=>createSpecificationController().handle(request, response))
 
-
 specificationRoutes.get("/")
 export { specificationRoutes }
