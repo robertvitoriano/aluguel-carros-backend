@@ -10,11 +10,11 @@ class CreateCategoryController {
     const { name, description } = request.body
 
     try {
-      
+
      await this.createCategoryUseCase.execute({ name, description })
 
     } catch (e) {
-      console.log('Error', e)
+      console.error('Error', e)
       return response.status(400).json({ error: e.message })
     }
 

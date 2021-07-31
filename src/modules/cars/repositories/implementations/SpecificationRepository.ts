@@ -3,9 +3,6 @@ import { ICreateSpecificationDTO, ISpecificationRepository } from "../ISpecifica
 import { getRepository, Repository} from 'typeorm'
 class SpecificationRepository implements ISpecificationRepository {
 
-
-  
-  
   constructor (){
 
     this.repository = getRepository(Specification)
