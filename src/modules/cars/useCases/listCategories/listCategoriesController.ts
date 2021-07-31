@@ -1,15 +1,10 @@
 import { Request, Response } from 'express'
-import { ICategoriesRepository } from '../../repositories/ICategoriesRepository'
 import { ListCategoriesUseCase} from './ListCategoriesUseCase'
 class ListCategoriesController {
 
+  constructor( private listCategoriesUseCase: ListCategoriesUseCase){}
 
-  constructor( private listCategoriesUseCase: ListCategoriesUseCase){
-
-
-  }
-
-  handle = (request: Request, response: Response): Response =>{
+  handle = async (request: Request, response: Response): Promise<Response> =>{
 
     const allCategories =  this.listCategoriesUseCase.execute()
 

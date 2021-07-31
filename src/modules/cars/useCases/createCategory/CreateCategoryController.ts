@@ -6,11 +6,12 @@ class CreateCategoryController {
   constructor(private createCategoryUseCase: CreateCategoryUseCase) {
 
   }
-  handle = (request: Request, response: Response) => {
+  handle = async (request: Request, response: Response) => {
     const { name, description } = request.body
 
     try {
-      this.createCategoryUseCase.execute({ name, description })
+      
+     await this.createCategoryUseCase.execute({ name, description })
 
     } catch (e) {
       console.log('Error', e)

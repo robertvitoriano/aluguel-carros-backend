@@ -13,7 +13,7 @@ class ImportCategoryUseCase {
   }
 
   
-  loadCategories(file: Express.Multer.File): Promise<IImportCategory[]>{
+ async loadCategories(file: Express.Multer.File): Promise<IImportCategory[]>{
 
     return new Promise((resolve, reject)=>{
       const stream = fs.createReadStream(file.path)
@@ -49,17 +49,13 @@ class ImportCategoryUseCase {
 
   async execute(file: Express.Multer.File): Promise<void> {
 
-    
     const categories = await this.loadCategories(file)
 
-    categories.forEach(({name, description})=>{
-      this.categoriesRepository.create({name, description})
-    })
+    const categoriesPromises = categories.map(({name, description})=>this.categoriesRepository.create({name, description}))
 
+    await Promise.all(categoriesPromises)
 
   }
-
-
 }
 
 
