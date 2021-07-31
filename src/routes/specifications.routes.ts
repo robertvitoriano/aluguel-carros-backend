@@ -1,5 +1,4 @@
-import { Request, Router } from 'express'
-import { SpecificationRepository} from '../modules/cars/repositories/implementations/SpecificationRepository'
+import { Router } from 'express'
 import createSpecificationController from './../modules/cars/useCases/createSpecification/'
 const specificationRoutes = Router()
 
