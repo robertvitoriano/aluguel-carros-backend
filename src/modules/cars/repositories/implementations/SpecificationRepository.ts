@@ -5,7 +5,7 @@ class SpecificationRepository implements ISpecificationRepository {
 
   constructor (){
 
-    this.repository = null
+    this.repository = getRepository(Specification)
     
   }
   
