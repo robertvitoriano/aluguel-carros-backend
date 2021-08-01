@@ -1,11 +1,14 @@
+import "reflect-metadata"
+
 import express from 'express'
 import swaggerUi from  'swagger-ui-express'
 import swaggerConfig from "./swagger.json" 
 import morgan from 'morgan'
 
+
 import { router } from './routes'
 import './database'
-
+import  './shared/container'
 const app = express()
 
 
