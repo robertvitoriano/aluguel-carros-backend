@@ -5,61 +5,66 @@ import { inject, injectable } from 'tsyringe'
 import { Category } from '../../entities/Category'
 
 interface IImportCategory {
-  name:string
-  description:string
+  name: string
+  description: string
 }
 @injectable()
 class ImportCategoryUseCase {
 
   constructor(
     @inject('CategoriesRepository')
-    private categoriesRepository:ICategoriesRepository){
+    private categoriesRepository: ICategoriesRepository) {
 
   }
 
- async loadCategories(file: Express.Multer.File): Promise<IImportCategory[]>{
+  async loadCategories(file: Express.Multer.File): Promise<IImportCategory[]> {
 
-    return new Promise((resolve, reject)=>{
+    return new Promise((resolve, reject) => {
       const stream = fs.createReadStream(file.path)
-      const categories:IImportCategory[] = []
-  
-      
+      const categories: IImportCategory[] = []
+
+
       const parseFile = csvParse()
       stream.pipe(parseFile)
-  
-      parseFile.on("data",async(line)=>{
+
+      parseFile.on("data", async (line) => {
 
         const [name, description] = line
-    
+
         categories.push({
-          name, 
+          name,
           description
-        })       
-  
-      }).on("end",()=>{
+        })
+
+      }).on("end", () => {
         fs.promises.unlink(file.path)
-        
+
         resolve(categories)
 
-      }).on("error", (error)=>{
+      }).on("error", (error) => {
 
         reject(error)
 
       })
 
     })
-    
+
   }
 
   async execute(file: Express.Multer.File): Promise<Category[]> {
 
     const categoriesData = await this.loadCategories(file)
 
-    const categoriesPromises = categoriesData.map(({name, description})=>this.categoriesRepository.create({name, description}))
+    const existingCategoryNames = (await this.categoriesRepository.list()).map((category) => category.name)
 
-   const categories =  await Promise.all(categoriesPromises)
+    const categoriesPromises = categoriesData.map(({ name, description }) => {
+      if (!existingCategoryNames.includes(name)) return this.categoriesRepository.create({ name, description })
+    }
+    )
 
-   return categories
+    const categories = await Promise.all(categoriesPromises.filter((categoriesPromise) => categoriesPromise))
+
+    return categories
 
   }
 }
