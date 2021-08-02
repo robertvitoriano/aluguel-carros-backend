@@ -10,9 +10,16 @@ class CreateSpecificationController {
     
     const createSpecificationUseCase = container.resolve(CreateSpecificationUseCase)
 
-   const specification =  await createSpecificationUseCase.execute({ name, description })
+    try{
 
-    return response.status(200).send({specification});
+      const specification =  await createSpecificationUseCase.execute({ name, description })
+      
+      return response.status(200).send({specification});
+    }catch(e){
+      console.error(e)
+      return response.status(400).send({error:e.message});
+
+    }
 
   }
 }
