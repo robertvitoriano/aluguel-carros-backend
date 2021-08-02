@@ -1,18 +1,22 @@
 import fs from 'fs'
 import csvParse from 'csv-parse'
 import { ICategoriesRepository } from '../../repositories/ICategoriesRepository'
+import { inject, injectable } from 'tsyringe'
+import { Category } from '../../entities/Category'
 
 interface IImportCategory {
   name:string
   description:string
 }
+@injectable()
 class ImportCategoryUseCase {
 
-  constructor(private categoriesRepository:ICategoriesRepository){
+  constructor(
+    @inject('CategoriesRepository')
+    private categoriesRepository:ICategoriesRepository){
 
   }
 
-  
  async loadCategories(file: Express.Multer.File): Promise<IImportCategory[]>{
 
     return new Promise((resolve, reject)=>{
@@ -24,6 +28,7 @@ class ImportCategoryUseCase {
       stream.pipe(parseFile)
   
       parseFile.on("data",async(line)=>{
+
         const [name, description] = line
     
         categories.push({
@@ -46,17 +51,17 @@ class ImportCategoryUseCase {
     
   }
 
+  async execute(file: Express.Multer.File): Promise<Category[]> {
 
-  async execute(file: Express.Multer.File): Promise<void> {
+    const categoriesData = await this.loadCategories(file)
 
-    const categories = await this.loadCategories(file)
+    const categoriesPromises = categoriesData.map(({name, description})=>this.categoriesRepository.create({name, description}))
 
-    const categoriesPromises = categories.map(({name, description})=>this.categoriesRepository.create({name, description}))
+   const categories =  await Promise.all(categoriesPromises)
 
-    await Promise.all(categoriesPromises)
+   return categories
 
   }
 }
-
 
 export { ImportCategoryUseCase }
