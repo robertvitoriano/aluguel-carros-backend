@@ -1,22 +1,23 @@
-import {Router, Request, Response} from 'express'
+import { Router, Request, Response } from 'express'
 import multer from 'multer'
 import { CreateCategoryController } from './../modules/cars/useCases/createCategory/CreateCategoryController'
 import { ImportCategoryController } from './../modules/cars//useCases/importCategory/ImportCategoryController'
-import  listCategoriesController  from '../modules/cars/useCases/listCategories'
+import { ListCategoriesController } from '../modules/cars/useCases/listCategories/listCategoriesController'
 
 const categoriesRoutes = Router()
 
 const upload = multer({
-  dest:"./tmp"
+  dest: "./tmp"
 })
 
 const createCategoryController = new CreateCategoryController()
 const importCategoryController = new ImportCategoryController()
+const listCategoriesController = new ListCategoriesController()
 
-categoriesRoutes.post( "/", createCategoryController.handle)
+categoriesRoutes.post("/", createCategoryController.handle)
 
-categoriesRoutes.get("/",(request:Request, response:Response)=>listCategoriesController().handle(request, response))
+categoriesRoutes.get("/",  listCategoriesController.handle)
 
-categoriesRoutes.post('/import',upload.single( "file" ), importCategoryController.handle)
+categoriesRoutes.post('/import', upload.single("file"), importCategoryController.handle)
 
 export { categoriesRoutes }
