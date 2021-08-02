@@ -5,35 +5,25 @@ import { getRepository, Repository} from 'typeorm'
 
 class CategoriesRepository implements ICategoriesRepository {
   
-  private constructor () {
+  constructor () {
 
     this.repository = getRepository(Category)
 
   }
+
   private repository: Repository<Category>
 
-  private static INSTANCE: CategoriesRepository;
-
-
-  public static getInstance():CategoriesRepository {
-
-    if(!CategoriesRepository.INSTANCE){
-      CategoriesRepository.INSTANCE = new CategoriesRepository()
-    }
-    
-    return  CategoriesRepository.INSTANCE
-  }
-
-
-  async create ({name, description}: ICreateCategoryDTO ): Promise<void> {
+  async create ({name, description}: ICreateCategoryDTO ): Promise<Category> {
+    console.log('criar categoria')
 
     const category = this.repository.create({
       description,
       name
     })
   
-
    await this.repository.save(category)
+
+   return category
      
   }
 
@@ -44,8 +34,6 @@ class CategoriesRepository implements ICategoriesRepository {
     return categories
 
   }
-
-
 
   async findByName (name: String):Promise<Category>{
 
